@@ -24,7 +24,6 @@ authRouter.get("/logout-all", authController.logoutAll);
 //otp verification 
 authRouter.get("/verify-email", authController.verifyEmail);
 
-
 // get all users
 authRouter.get("/users", authController.getAllUsers);
 export default authRouter;
