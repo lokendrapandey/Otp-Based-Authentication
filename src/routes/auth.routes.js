@@ -1,29 +1,22 @@
 import { Router } from "express";
 import * as authController from "../controllers/auth.controller.js";
+import validate from "../middlewares/validate.middleware.js";
+import { registerValidator, loginValidator, verifyEmailValidator } from "../validators/auth.validator.js";
+import authMiddleware from "../middlewares/auth.middleware.js";
+import asyncHandler from "../middlewares/asyncHandler.js";
 
 const authRouter = Router();
 
-// register api
-authRouter.post("/register", authController.register );
+app.use(cors())
+ 
+authRouter.post("/register", registerValidator, validate, authController.register);
+authRouter.post("/login", loginValidator, validate, authController.login);
+authRouter.post("/verify-email", verifyEmailValidator, validate, authController.verifyEmail);
+authRouter.post("/refresh-token", authController.refreshToken);
 
-// login api 
-authRouter.post("/login", authController.login);
+authRouter.get("/get-me", authMiddleware, authController.getMe);
+authRouter.post("/logout", authController.logout);
+authRouter.post("/logout-all", authController.logoutAll);
+authRouter.get("/users", authMiddleware, authController.getAllUsers);
 
-// get me api
-authRouter.get("/get-me", authController.getme);
-
-//get refresh token api
-authRouter.get("/refresh-token", authController.refreshToken);
-
-//logout api
-authRouter.get("/logout", authController.logout);
-
-//logout all api
-authRouter.get("/logout-all", authController.logoutAll);
-
-//otp verification 
-authRouter.get("/verify-email", authController.verifyEmail);
-
-// get all users
-authRouter.get("/users", authController.getAllUsers);
 export default authRouter;
