@@ -4,6 +4,7 @@ import validate from "../middlewares/validate.middleware.js";
 import { registerValidator, loginValidator, verifyEmailValidator } from "../validators/auth.validator.js";
 import authMiddleware from "../middlewares/auth.middleware.js";
 import asyncHandler from "../middlewares/asyncHandler.js";
+import cors from "cors";
 
 const authRouter = Router();
 
